@@ -71,7 +71,6 @@ public class Main {
             }
         }
 
-//        System.out.println("Loop Exited");
     }
 
     public static void buy_seat() {
