@@ -61,6 +61,8 @@ public class Main {
                         print_tickets_info();
                         break;
                     case 6:
+                        search_ticket();
+                        break;
                     case 7:
                     case 8:
                     case 0:
@@ -215,6 +217,27 @@ public class Main {
             }
         }
         System.out.println("Total Price of tickets sold during session : £" + total);
+    }
+
+    public static void search_ticket() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Please Enter Row : ");
+        String row = (input.next()).toUpperCase();
+
+        System.out.print("Please Enter Seat No. : ");
+        int seat = input.nextInt();
+
+        if (validateRowAndSeat(row, seat)) {
+            for (Ticket ticket : tickets) {
+                if (ticket != null && ticket.getRow().equals(row) && ticket.getSeat() == seat) {
+                    System.out.println("Ticket Found!");
+                    ticket.printTicketInfo();
+                    return;
+                }
+            }
+            System.out.println("This seat is available.");
+        }
     }
 
     /**
