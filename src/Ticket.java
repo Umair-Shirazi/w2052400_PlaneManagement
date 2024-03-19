@@ -1,10 +1,10 @@
 public class Ticket {
-    private int row;
+    private String row;
     private int seat;
     private double price;
     private Person person;
 
-    public Ticket(int row, int seat, double price, Person person) {
+    public Ticket(String row, int seat, double price, Person person) {
         this.row = row;
         this.seat = seat;
         this.price = price;
@@ -12,7 +12,7 @@ public class Ticket {
     }
 
     //Getters
-    public int getRow() {
+    public String getRow() {
         return this.row;
     }
 
@@ -30,7 +30,7 @@ public class Ticket {
 
     //Setters
 
-    public void setRow(int row) {
+    public void setRow(String row) {
         this.row = row;
     }
 
