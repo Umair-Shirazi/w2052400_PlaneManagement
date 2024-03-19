@@ -192,15 +192,19 @@ public class Main {
                 if (validateRowAndSeat(buyingRow, buyingSeat)) {
                     if (buyingRow.equals("A") && rowA[buyingSeat - 1] == 1) {
                         rowA[buyingSeat - 1] = 0;
+                        cancelTicket(buyingRow,buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("B") && rowB[buyingSeat - 1] == 1) {
                         rowB[buyingSeat - 1] = 0;
+                        cancelTicket(buyingRow,buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("C") && rowC[buyingSeat - 1] == 1) {
                         rowC[buyingSeat - 1] = 0;
+                        cancelTicket(buyingRow,buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("D") && rowD[buyingSeat - 1] == 1) {
                         rowD[buyingSeat - 1] = 0;
+                        cancelTicket(buyingRow,buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("A") || buyingRow.equals("B") || buyingRow.equals("C") || buyingRow.equals("D")) {
                         System.out.println("This seat is not occupied");
@@ -211,6 +215,17 @@ public class Main {
                 System.out.println("Please enter a valid number");
             }
         }
+    }
+
+    public static void cancelTicket(String row, int seat){
+        for (int i =0; i < tickets.length; i++){
+            if(tickets[i] != null && tickets[i].getRow().equals(row) && tickets[i].getSeat() == seat){
+                tickets[i] = null;
+                System.out.println("Ticket Cancelled Successfully");
+                return;
+            }
+        }
+        System.out.println("Ticket Not Found");
     }
 
     public static void find_first_available() {
@@ -290,6 +305,12 @@ public class Main {
         return validRowAndSeat;
     }
 
+    /**
+     * Get a String array and a string and check if the value is present in the array
+     * @param arr String Array to check if value is in it
+     * @param checkingValue string value to check
+     * @return boolean if the checkingValue is in the array its will return true, if not false.
+     */
     private static boolean inArray(String[] arr, String checkingValue) {
         boolean found = false;
         for (String value : arr) {
@@ -301,6 +322,11 @@ public class Main {
         return found;
     }
 
+    /**
+     * Get the number of seats in an entered row
+     * @param row the row to get the seats from
+     * @return the number of seats in the entered row
+     */
     private static int getRowLength(String row) {
         if (row.equals("A") || row.equals("D")) {
             return 14;
