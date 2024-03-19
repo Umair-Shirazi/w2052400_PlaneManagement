@@ -58,6 +58,8 @@ public class Main {
                         show_seating_plan();
                         break;
                     case 5:
+                        print_tickets_info();
+                        break;
                     case 6:
                     case 7:
                     case 8:
@@ -120,6 +122,99 @@ public class Main {
         }
     }
 
+    public static void cancel_seat() {
+        Scanner input = new Scanner(System.in);
+        boolean loop = true;
+
+        while (loop) {
+            try {
+
+                System.out.print("Please Enter Row : ");
+                String buyingRow = (input.next()).toUpperCase();
+
+                System.out.print("Please Enter Seat No. : ");
+                int buyingSeat = input.nextInt();
+
+                if (validateRowAndSeat(buyingRow, buyingSeat)) {
+                    if (buyingRow.equals("A") && rowA[buyingSeat - 1] == 1) {
+                        rowA[buyingSeat - 1] = 0;
+                        cancelTicket(buyingRow,buyingSeat);
+                        loop = false;
+                    } else if (buyingRow.equals("B") && rowB[buyingSeat - 1] == 1) {
+                        rowB[buyingSeat - 1] = 0;
+                        cancelTicket(buyingRow,buyingSeat);
+                        loop = false;
+                    } else if (buyingRow.equals("C") && rowC[buyingSeat - 1] == 1) {
+                        rowC[buyingSeat - 1] = 0;
+                        cancelTicket(buyingRow,buyingSeat);
+                        loop = false;
+                    } else if (buyingRow.equals("D") && rowD[buyingSeat - 1] == 1) {
+                        rowD[buyingSeat - 1] = 0;
+                        cancelTicket(buyingRow,buyingSeat);
+                        loop = false;
+                    } else if (buyingRow.equals("A") || buyingRow.equals("B") || buyingRow.equals("C") || buyingRow.equals("D")) {
+                        System.out.println("This seat is not occupied");
+                        loop = false;
+                    }
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number");
+            }
+        }
+    }
+
+    public static void find_first_available() {
+        for (String row : new String[]{"A", "B", "C", "D"}) {
+            for (int seat = 0; seat < getRowLength(row); seat++) {
+                if (row.equals("A") && rowA[seat] == 0) {
+                    System.out.println("First available seat: Row " + row + ", Seat " + (seat + 1));
+                    return;
+                } else if (row.equals("B") && rowB[seat] == 0) {
+                    System.out.println("First available seat: Row " + row + ", Seat " + (seat + 1));
+                    return;
+                } else if (row.equals("C") && rowC[seat] == 0) {
+                    System.out.println("First available seat: Row " + row + ", Seat " + (seat + 1));
+                    return;
+                } else if (row.equals("D") && rowD[seat] == 0) {
+                    System.out.println("First available seat: Row " + row + ", Seat " + (seat + 1));
+                    return;
+                }
+
+            }
+        }
+        System.out.println("No available seats found.");
+    }
+
+    public static void show_seating_plan() {
+
+        for (String row : new String[]{"A", "B", "C", "D"}) {
+            System.out.print(row + "  ");
+            for (int seat = 0; seat < getRowLength(row); seat++) {
+                if (row.equals("A") && rowA[seat] == 0) {
+                    System.out.print("O ");
+                } else if (row.equals("B") && rowB[seat] == 0) {
+                    System.out.print("O ");
+                } else if (row.equals("C") && rowC[seat] == 0) {
+                    System.out.print("O ");
+                } else if (row.equals("D") && rowD[seat] == 0) {
+                    System.out.print("O ");
+                } else {
+                    System.out.print("X ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public static void print_tickets_info(){
+        double total = 0;
+        for (Ticket ticket : tickets){
+            ticket.printTicketInfo();
+            total += ticket.getPrice();
+        }
+        System.out.println("Total Price of tickets sold during session : £" + total);
+    }
+
     /**
      * Create a new person and ticket. Adds the created ticket to the Ticket array.
      * Loops with error handling until valid information is entered.
@@ -176,47 +271,6 @@ public class Main {
             }
     }
 
-    public static void cancel_seat() {
-        Scanner input = new Scanner(System.in);
-        boolean loop = true;
-
-        while (loop) {
-            try {
-
-                System.out.print("Please Enter Row : ");
-                String buyingRow = (input.next()).toUpperCase();
-
-                System.out.print("Please Enter Seat No. : ");
-                int buyingSeat = input.nextInt();
-
-                if (validateRowAndSeat(buyingRow, buyingSeat)) {
-                    if (buyingRow.equals("A") && rowA[buyingSeat - 1] == 1) {
-                        rowA[buyingSeat - 1] = 0;
-                        cancelTicket(buyingRow,buyingSeat);
-                        loop = false;
-                    } else if (buyingRow.equals("B") && rowB[buyingSeat - 1] == 1) {
-                        rowB[buyingSeat - 1] = 0;
-                        cancelTicket(buyingRow,buyingSeat);
-                        loop = false;
-                    } else if (buyingRow.equals("C") && rowC[buyingSeat - 1] == 1) {
-                        rowC[buyingSeat - 1] = 0;
-                        cancelTicket(buyingRow,buyingSeat);
-                        loop = false;
-                    } else if (buyingRow.equals("D") && rowD[buyingSeat - 1] == 1) {
-                        rowD[buyingSeat - 1] = 0;
-                        cancelTicket(buyingRow,buyingSeat);
-                        loop = false;
-                    } else if (buyingRow.equals("A") || buyingRow.equals("B") || buyingRow.equals("C") || buyingRow.equals("D")) {
-                        System.out.println("This seat is not occupied");
-                        loop = false;
-                    }
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a valid number");
-            }
-        }
-    }
-
     public static void cancelTicket(String row, int seat){
         for (int i =0; i < tickets.length; i++){
             if(tickets[i] != null && tickets[i].getRow().equals(row) && tickets[i].getSeat() == seat){
@@ -226,49 +280,6 @@ public class Main {
             }
         }
         System.out.println("Ticket Not Found");
-    }
-
-    public static void find_first_available() {
-        for (String row : new String[]{"A", "B", "C", "D"}) {
-            for (int seat = 0; seat < getRowLength(row); seat++) {
-                if (row.equals("A") && rowA[seat] == 0) {
-                    System.out.println("First available seat: Row " + row + ", Seat " + (seat + 1));
-                    return;
-                } else if (row.equals("B") && rowB[seat] == 0) {
-                    System.out.println("First available seat: Row " + row + ", Seat " + (seat + 1));
-                    return;
-                } else if (row.equals("C") && rowC[seat] == 0) {
-                    System.out.println("First available seat: Row " + row + ", Seat " + (seat + 1));
-                    return;
-                } else if (row.equals("D") && rowD[seat] == 0) {
-                    System.out.println("First available seat: Row " + row + ", Seat " + (seat + 1));
-                    return;
-                }
-
-            }
-        }
-        System.out.println("No available seats found.");
-    }
-
-    public static void show_seating_plan() {
-
-        for (String row : new String[]{"A", "B", "C", "D"}) {
-            System.out.print(row + "  ");
-            for (int seat = 0; seat < getRowLength(row); seat++) {
-                if (row.equals("A") && rowA[seat] == 0) {
-                    System.out.print("O ");
-                } else if (row.equals("B") && rowB[seat] == 0) {
-                    System.out.print("O ");
-                } else if (row.equals("C") && rowC[seat] == 0) {
-                    System.out.print("O ");
-                } else if (row.equals("D") && rowD[seat] == 0) {
-                    System.out.print("O ");
-                } else {
-                    System.out.print("X ");
-                }
-            }
-            System.out.println();
-        }
     }
 
     /**
@@ -336,7 +347,7 @@ public class Main {
     }
 
     /**
-     * validates email address to entered regex pattern
+     * Validates email address to entered regex pattern
      *
      * @param emailAddress entered email address
      * @param regexPattern entered regex pattern to validate email
