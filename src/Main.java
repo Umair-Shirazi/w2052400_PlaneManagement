@@ -1,11 +1,15 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
+
     static int[] rowA = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     static int[] rowB = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     static int[] rowC = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     static int[] rowD = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    static Ticket[] tickets = new Ticket[52];
 
     public static void main(String[] args) {
         /*Person person = new Person ("Umair", "Shirazi", "umairshirazi2005@gmail.com");
@@ -90,18 +94,23 @@ public class Main {
                 if (validateRowAndSeat(buyingRow, buyingSeat)) {
                     if (buyingRow.equals("A") && rowA[buyingSeat - 1] == 0) {
                         rowA[buyingSeat - 1] = 1;
+                        enterBuyerInfo(buyingRow, buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("B") && rowB[buyingSeat - 1] == 0) {
                         rowB[buyingSeat - 1] = 1;
+                        enterBuyerInfo(buyingRow, buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("C") && rowC[buyingSeat - 1] == 0) {
                         rowC[buyingSeat - 1] = 1;
+                        enterBuyerInfo(buyingRow, buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("D") && rowD[buyingSeat - 1] == 0) {
                         rowD[buyingSeat - 1] = 1;
+                        enterBuyerInfo(buyingRow, buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("A") || buyingRow.equals("B") || buyingRow.equals("C") || buyingRow.equals("D")) {
                         System.out.println("This seat is occupied");
+                        enterBuyerInfo(buyingRow, buyingSeat);
                         loop = false;
                     }
                 }
@@ -109,6 +118,62 @@ public class Main {
                 System.out.println("Please enter a valid number");
             }
         }
+    }
+
+    /**
+     * Create a new person and ticket. Adds the created ticket to the Ticket array.
+     * Loops with error handling until valid information is entered.
+     *
+     * @param row  row entered by user for the ticket in buy_seat().
+     * @param seat seat entered by the user for the ticket in buy_seat().
+     */
+    public static void enterBuyerInfo(String row, int seat) {
+        /*
+          Title: Simple Email Validation in Java
+          Author: Denys Velykozhon
+          Date: January 31, 2020
+          Availability: https://mailtrap.io/blog/java-email-validation/
+          Reference for the email regex pattern
+         */
+        String emailRegexPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        boolean loop = true;
+
+        Scanner input = new Scanner(System.in);
+
+        while (loop)
+            try {
+                System.out.print("Enter first name: ");
+                String firstName = input.nextLine();
+                System.out.print("Enter last name: ");
+                String lastName = input.nextLine();
+                System.out.print("Enter email address: ");
+                String email = input.nextLine();
+
+                if (patternMatches(email, emailRegexPattern)) {
+
+                    Person newPerson = new Person(firstName, lastName, email);
+
+                    if (seat > 0 && seat <= 5) {
+                        Ticket newTicket = new Ticket(row, seat, 200.00, newPerson);
+                        addTicket(newTicket);
+                        loop = false;
+                    } else if (seat > 5 && seat <= 9) {
+                        Ticket newTicket = new Ticket(row, seat, 150.00, newPerson);
+                        addTicket(newTicket);
+                        loop = false;
+                    } else if (seat > 9 && seat <= 14) {
+                        Ticket newTicket = new Ticket(row, seat, 180.00, newPerson);
+                        addTicket(newTicket);
+                        loop = false;
+                    }
+
+                } else {
+                    System.out.println("Invalid Email address. Please enter your details again");
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("");
+            }
     }
 
     public static void cancel_seat() {
@@ -170,7 +235,7 @@ public class Main {
         System.out.println("No available seats found.");
     }
 
-    public static void show_seating_plan(){
+    public static void show_seating_plan() {
 
         for (String row : new String[]{"A", "B", "C", "D"}) {
             System.out.print(row + "  ");
@@ -244,6 +309,31 @@ public class Main {
         }
     }
 
+    /**
+     * validates email address to entered regex pattern
+     *
+     * @param emailAddress entered email address
+     * @param regexPattern entered regex pattern to validate email
+     * @return true if email is valid, false if it isn't valid
+     */
+    public static boolean patternMatches(String emailAddress, String regexPattern) {
+        Pattern pattern = Pattern.compile(regexPattern);
+        Matcher matcher = pattern.matcher(emailAddress);
+        return matcher.matches();
+    }
+
+    public static void addTicket(Ticket newTicket) {
+        for (int i = 0; i < tickets.length; i++) {
+            if (tickets[i] == null) {
+                tickets[i] = newTicket;
+                System.out.println("Booking Successful!");
+                break;
+            }
+            if (i == tickets.length - 1) {
+                System.out.println("Cannot book anymore seats");
+            }
+        }
+    }
 }
 
 
