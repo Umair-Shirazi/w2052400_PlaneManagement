@@ -18,7 +18,7 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Welcome to the Plane Management Application!");
+        System.out.println("Welcome to the Plane Management Application!\n");
 
         boolean isNotExit = true;
 
@@ -138,19 +138,19 @@ public class Main {
                 if (validateRowAndSeat(buyingRow, buyingSeat)) {
                     if (buyingRow.equals("A") && rowA[buyingSeat - 1] == 1) {
                         rowA[buyingSeat - 1] = 0;
-                        cancelTicket(buyingRow,buyingSeat);
+                        cancelTicket(buyingRow, buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("B") && rowB[buyingSeat - 1] == 1) {
                         rowB[buyingSeat - 1] = 0;
-                        cancelTicket(buyingRow,buyingSeat);
+                        cancelTicket(buyingRow, buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("C") && rowC[buyingSeat - 1] == 1) {
                         rowC[buyingSeat - 1] = 0;
-                        cancelTicket(buyingRow,buyingSeat);
+                        cancelTicket(buyingRow, buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("D") && rowD[buyingSeat - 1] == 1) {
                         rowD[buyingSeat - 1] = 0;
-                        cancelTicket(buyingRow,buyingSeat);
+                        cancelTicket(buyingRow, buyingSeat);
                         loop = false;
                     } else if (buyingRow.equals("A") || buyingRow.equals("B") || buyingRow.equals("C") || buyingRow.equals("D")) {
                         System.out.println("This seat is not occupied");
@@ -206,11 +206,13 @@ public class Main {
         }
     }
 
-    public static void print_tickets_info(){
+    public static void print_tickets_info() {
         double total = 0;
-        for (Ticket ticket : tickets){
-            ticket.printTicketInfo();
-            total += ticket.getPrice();
+        for (Ticket ticket : tickets) {
+            if (ticket != null) {
+                ticket.printTicketInfo();
+                total += ticket.getPrice();
+            }
         }
         System.out.println("Total Price of tickets sold during session : £" + total);
     }
@@ -271,9 +273,9 @@ public class Main {
             }
     }
 
-    public static void cancelTicket(String row, int seat){
-        for (int i =0; i < tickets.length; i++){
-            if(tickets[i] != null && tickets[i].getRow().equals(row) && tickets[i].getSeat() == seat){
+    public static void cancelTicket(String row, int seat) {
+        for (int i = 0; i < tickets.length; i++) {
+            if (tickets[i] != null && tickets[i].getRow().equals(row) && tickets[i].getSeat() == seat) {
                 tickets[i] = null;
                 System.out.println("Ticket Cancelled Successfully");
                 return;
@@ -318,7 +320,8 @@ public class Main {
 
     /**
      * Get a String array and a string and check if the value is present in the array
-     * @param arr String Array to check if value is in it
+     *
+     * @param arr           String Array to check if value is in it
      * @param checkingValue string value to check
      * @return boolean if the checkingValue is in the array its will return true, if not false.
      */
@@ -335,6 +338,7 @@ public class Main {
 
     /**
      * Get the number of seats in an entered row
+     *
      * @param row the row to get the seats from
      * @return the number of seats in the entered row
      */
