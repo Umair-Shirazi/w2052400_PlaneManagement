@@ -76,6 +76,9 @@ public class Main {
 
     }
 
+    /**
+     * Allows users to purchase a seat by entering the row and seat number
+     */
     public static void buy_seat() {
 
         Scanner input = new Scanner(System.in);
@@ -119,6 +122,9 @@ public class Main {
         }
     }
 
+    /**
+     * Allows the users to cancel a reservation by entering the row and seat number.
+     */
     public static void cancel_seat() {
         Scanner input = new Scanner(System.in);
         boolean loop = true;
@@ -160,6 +166,9 @@ public class Main {
         }
     }
 
+    /**
+     * Displays the location of the first unoccupied seat.
+     */
     public static void find_first_available() {
         for (String row : new String[]{"A", "B", "C", "D"}) {
             for (int seat = 0; seat < getRowLength(row); seat++) {
@@ -182,6 +191,9 @@ public class Main {
         System.out.println("No available seats found.");
     }
 
+    /**
+     * Print the seating plan, showing the booked seats.
+     */
     public static void show_seating_plan() {
 
         for (String row : new String[]{"A", "B", "C", "D"}) {
@@ -203,6 +215,9 @@ public class Main {
         }
     }
 
+    /**
+     * Print the information of all the booked tickets and the total price of ticket sold during the session
+     */
     public static void print_tickets_info() {
         double total = 0;
         for (Ticket ticket : tickets) {
@@ -214,6 +229,9 @@ public class Main {
         System.out.println("Total Price of tickets sold during session : £" + total);
     }
 
+    /**
+     * Search for a specific Ticket entered by the user and Print if the Ticket is occupied or not
+     */
     public static void search_ticket() {
         Scanner input = new Scanner(System.in);
 
@@ -291,6 +309,12 @@ public class Main {
             }
     }
 
+    /**
+     * Cancel a selected ticket. Removes the selected ticket from the Ticket array.
+     *
+     * @param row  row entered by user for the ticket in cancel_seat().
+     * @param seat seat entered by the user for the ticket in cancel_seat().
+     */
     public static void cancelTicket(String row, int seat) {
         for (int i = 0; i < tickets.length; i++) {
             if (tickets[i] != null && tickets[i].getRow().equals(row) && tickets[i].getSeat() == seat) {
@@ -381,6 +405,10 @@ public class Main {
         return matcher.matches();
     }
 
+    /**
+     * Add a ticket and the ticket information in a file
+     * @param newTicket The ticket needed to be added to the tickets array
+     */
     public static void addTicket(Ticket newTicket) {
         for (int i = 0; i < tickets.length; i++) {
             if (tickets[i] == null) {
