@@ -12,9 +12,6 @@ public class Main {
     static Ticket[] tickets = new Ticket[52];
 
     public static void main(String[] args) {
-        /*Person person = new Person ("Umair", "Shirazi", "umairshirazi2005@gmail.com");
-        Ticket ticket = new Ticket(1,1,50.35, person);
-        ticket.printTicketInfo();*/
 
         Scanner input = new Scanner(System.in);
 
@@ -63,8 +60,6 @@ public class Main {
                     case 6:
                         search_ticket();
                         break;
-                    case 7:
-                    case 8:
                     case 0:
                         isNotExit = false;
                         break;
@@ -390,6 +385,7 @@ public class Main {
         for (int i = 0; i < tickets.length; i++) {
             if (tickets[i] == null) {
                 tickets[i] = newTicket;
+                tickets[i].save();
                 System.out.println("Booking Successful!");
                 break;
             }
