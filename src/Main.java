@@ -112,7 +112,6 @@ public class Main {
                         loop = false;
                     } else if (buyingRow.equals("A") || buyingRow.equals("B") || buyingRow.equals("C") || buyingRow.equals("D")) {
                         System.out.println("This seat is occupied");
-                        enterBuyerInfo(buyingRow, buyingSeat);
                         loop = false;
                     }
                 }
