@@ -329,17 +329,17 @@ public class PlaneManagement {
 
     /**
      * Delete the file generate for the selected ticket to cancel
-     * @param row The row of the cancelling seat
+     *
+     * @param row  The row of the cancelling seat
      * @param seat The seat number of the cancelling seat
      */
     private static void deleteTicketFile(String row, int seat) {
         String filename = row + seat + ".txt";
         File file = new File(filename);
 
-        if (file.exists() && file.delete()){
+        if (file.exists() && file.delete()) {
             System.out.println("File " + filename + " deleted.");
-        }
-        else {
+        } else {
             System.out.println("File " + filename + " not found.");
         }
     }
@@ -424,6 +424,7 @@ public class PlaneManagement {
 
     /**
      * Add a ticket and the ticket information in a file
+     *
      * @param newTicket The ticket needed to be added to the tickets array
      */
     public static void addTicket(Ticket newTicket) {
