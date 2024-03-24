@@ -36,8 +36,7 @@ public class PlaneManagement {
                                         
                         *************************************************
                                         
-                        Please select an option:\s
-                        """);
+                        Please select an option:\s""");
 
                 int menuOption = input.nextInt();
 
