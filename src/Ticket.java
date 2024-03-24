@@ -49,6 +49,9 @@ public class Ticket {
         this.person = person;
     }
 
+    /**
+     * Print selected ticket information
+     */
     public void printTicketInfo (){
         System.out.println("Ticket Information:");
         System.out.println("Row: " + row);
@@ -58,6 +61,9 @@ public class Ticket {
         System.out.println("\n");
     }
 
+    /**
+     * Saves the information of the ticket in a file with the name as the row and seat
+     */
     public void save(){
         try {
             String filename = row + seat + ".txt";

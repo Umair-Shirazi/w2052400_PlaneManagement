@@ -191,7 +191,7 @@ public class PlaneManagement {
     }
 
     /**
-     * Print the seating plan, showing the booked seats.
+     * Print the seating plan, showing the booked seats as X and the empty seats as O.
      */
     public static void show_seating_plan() {
 
