@@ -117,6 +117,7 @@ public class PlaneManagement {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Please enter a valid number");
+                input.next();
             }
         }
     }
