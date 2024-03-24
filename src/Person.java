@@ -5,6 +5,7 @@ public class Person {
 
     /**
      * Constructor for the person purchasing the ticket
+     *
      * @param name    First Name
      * @param surname Last Name
      * @param email   Email Address

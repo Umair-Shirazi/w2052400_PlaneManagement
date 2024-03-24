@@ -52,7 +52,7 @@ public class Ticket {
     /**
      * Print selected ticket information
      */
-    public void printTicketInfo (){
+    public void printTicketInfo() {
         System.out.println("Ticket Information:");
         System.out.println("Row: " + row);
         System.out.println("Seat: " + seat);
@@ -64,7 +64,7 @@ public class Ticket {
     /**
      * Saves the information of the ticket in a file with the name as the row and seat
      */
-    public void save(){
+    public void save() {
         try {
             String filename = row + seat + ".txt";
             FileWriter myWriter = new FileWriter(filename);
@@ -81,7 +81,7 @@ public class Ticket {
             myWriter.close();
 
             System.out.println("File created: " + filename);
-        } catch (IOException e ){
+        } catch (IOException e) {
             System.out.println("An error occurred when saving file.");
         }
     }
