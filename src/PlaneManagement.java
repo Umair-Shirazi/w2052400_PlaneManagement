@@ -338,8 +338,7 @@ public class PlaneManagement {
 
         boolean validRowAndSeat = false;
 
-        boolean inValidRows = inArray(validRows, row);
-        if (inValidRows) {
+        if (inArray(validRows, row)) {
             if (row.equals("A") || row.equals("D")) {
                 if (seat < 15 && seat > 0) {
                     validRowAndSeat = true;
@@ -392,11 +391,11 @@ public class PlaneManagement {
     }
 
     /**
-     * Validates email address to entered regex pattern
+     * Takes the email address and the pattern and checks email if it fits the pattern
      *
-     * @param emailAddress entered email address
-     * @param regexPattern entered regex pattern to validate email
-     * @return true if email is valid, false if it isn't valid
+     * @param emailAddress user entered email address to validate
+     * @param regexPattern regex pattern to check with email
+     * @return Returns a boolean. If pattern matches it return true. If not it returns false
      */
     public static boolean patternMatches(String emailAddress, String regexPattern) {
         Pattern pattern = Pattern.compile(regexPattern);
